@@ -5,12 +5,21 @@ data:
   raw:
     trn_path: 'data/raw/hm_trn.csv'
     vld_path: 'data/raw/hm_tst.csv'
+  interim:
+    raman:
+      XX_path: 'data/interim/corr_raman_XX.feather'
+      Xy_path: 'data/interim/corr_raman_Xy.feather'
+    absorption:
+      XX_path: 'data/interim/corr_absorption_XX.feather'
+      Xy_path: 'data/interim/corr_absorption_Xy.feather'
   processed:
     trn:
-      X_raman_path: 'data/processed/X_trn_raman.feather'
-      X_absorption_path: 'data/processed/X_trn_absorption.feather'
+      X:
+        raman_path: 'data/processed/X_trn_raman.feather'
+        absorption_path: 'data/processed/X_trn_absorption.feather'
       y_ions_path: 'data/processed/y_trn_ions.feather'
     vld:
-      X_raman_path: 'data/processed/X_vld_raman.feather'
-      X_absorption_path: 'data/processed/X_vld_absorption.feather'
+      X:
+        raman_path: 'data/processed/X_vld_raman.feather'
+        absorption_path: 'data/processed/X_vld_absorption.feather'
       y_ions_path: 'data/processed/y_vld_ions.feather'
