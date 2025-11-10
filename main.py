@@ -13,6 +13,7 @@ config = load_config()
 data_processor = DataProcessor(config)
 data_processor.process_raw_data()
 
+y_ions_path = config['data']['processed']['trn']['y_ions_path']
 raman_paths = (
     config['data']['processed']['trn']['X']['raman_path'], 
     config['data']['interim']['raman']['XX_path'],
@@ -28,16 +29,14 @@ level_Xy = config['feature_selection']['fcbf']['level_Xy']
 
 try:
     logger.info("Loading processed training data for feature selection")
-    y_ions_path = config['data']['processed']['trn']['y_ions_path']
     df_y = pd.read_feather(y_ions_path)
     for df_X_path, XX_path, Xy_path in (raman_paths, absorp_paths):
         df_X = pd.read_feather(df_X_path)
         feature_selector = FeatureSelector(df_X, df_y)
-        corr_XX, corr_Xy = feature_selector.calculate_correlations()
-        corr_XX.to_feather(XX_path)
-        corr_Xy.to_feather(Xy_path)
-
-        mask = feature_selector.fcbf(level_XX, level_Xy)
+        feature_selector.calculate_correlations()
+        feature_selector.save_correlations(XX_path, Xy_path)
+        feature_selector.fcbf(level_XX, level_Xy)
+        feature_selector.save_mask(mask_path)
 
 except FileNotFoundError as e:
     logger.error(f"Processed data file not found: {e.filename}")
