@@ -18,29 +18,29 @@ class FeatureSelector:
         """
         try:
             logger.info("Loading processed training data for feature selection")
-            y_ions_path = self.config['processed']['trn']['y_ions_path']
+            y_ions_path = self.config['data']['processed']['trn']['y_ions_path']
             df_y = pd.read_feather(y_ions_path)
 
             for df_X_path, XX_path, Xy_path in [
                 (
-                    self.config['processed']['trn']['X_raman_path'], 
-                    self.config['interim']['raman']['XX_path'],
-                    self.config['interim']['raman']['Xy_path']
+                    self.config['data']['processed']['trn']['X']['raman_path'], 
+                    self.config['data']['interim']['raman']['XX_path'],
+                    self.config['data']['interim']['raman']['Xy_path']
                 ),
                 (
-                    self.config['processed']['trn']['X_absorption_path'], 
-                    self.config['interim']['absorption']['XX_path'],
-                    self.config['interim']['absorption']['Xy_path']
+                    self.config['data']['processed']['trn']['X']['absorption_path'], 
+                    self.config['data']['interim']['absorption']['XX_path'],
+                    self.config['data']['interim']['absorption']['Xy_path']
                 )
             ]:
                 df_X = pd.read_feather(df_X_path)
 
                 corr_XX = df_X.corr().abs()
-                corr_Xy = df_X.corrwith(df_y).abs()
+                corr_Xy = df_X.corrwith(df_y).abs().to_frame()
                 
                 corr_XX.to_feather(XX_path)
                 corr_Xy.to_feather(Xy_path)
-                logger.info("Successfully computed and saved correlations")
+                logger.info("Successfully calculated and saved correlations")
         
         except FileNotFoundError as e:
             logger.error(f"Processed data file not found: {e.filename}")
