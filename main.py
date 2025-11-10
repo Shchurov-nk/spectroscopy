@@ -1,9 +1,9 @@
 import logging
 import pandas as pd
 
-from code.utils.config import load_config
-from code.data.dataset import DataProcessor
-from code.data.features import FeatureSelector
+from spectroscopy.config import load_config
+from spectroscopy.dataset import DataProcessor
+from spectroscopy.features import FeatureSelector
 
 logger = logging.getLogger(__name__)
 logger.setLevel(level=logging.DEBUG)
