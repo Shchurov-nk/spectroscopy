@@ -7,11 +7,15 @@ data:
     vld_path: 'data/raw/hm_tst.csv'
   interim:
     raman:
-      XX_path: 'data/interim/corr_raman_XX.feather'
-      Xy_path: 'data/interim/corr_raman_Xy.feather'
+      XX_path: 'data/interim/corr/raman_XX.feather'
+      Xy_path: 'data/interim/corr/raman_Xy.feather'
+      masks:
+        fcbf_path: 'data/interim/masks/fcbf_raman.feather'
     absorption:
-      XX_path: 'data/interim/corr_absorption_XX.feather'
-      Xy_path: 'data/interim/corr_absorption_Xy.feather'
+      XX_path: 'data/interim/corr/absorption_XX.feather'
+      Xy_path: 'data/interim/corr/absorption_Xy.feather'
+      masks:
+        fcbf_path: 'data/interim/masks/fcbf_absorption.feather'
   processed:
     trn:
       X:
