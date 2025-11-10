@@ -40,19 +40,19 @@ class DataProcessor:
         try:
             logger.info(f"Loading raw data from {raw_data_path}")
             df = pd.read_csv(raw_data_path, index_col=0)
-            logger.info(f"Successfully loaded raw data: {len(df)} rows, {len(df.columns)} columns")
+            logger.info(f"Loaded raw data: {len(df)} rows, {len(df.columns)} columns")
             
             df_raman = df.iloc[:, :raman_col_len]
             df_raman.to_feather(X_raman_path)
-            logger.info(f"Successfully saved Raman: {len(df_raman)} rows, {len(df_raman.columns)} columns")
+            logger.info(f"Saved Raman: {len(df_raman)} rows, {len(df_raman.columns)} columns")
             
             df_absorption = df.iloc[:, raman_col_len:raman_col_len+absorption_col_len]
             df_absorption.to_feather(X_absorption_path)
-            logger.info(f"Successfully saved Absorption: {len(df_absorption)} rows, {len(df_absorption.columns)} columns")
+            logger.info(f"Saved Absorption: {len(df_absorption)} rows, {len(df_absorption.columns)} columns")
             
             df_ions = df.iloc[:, raman_col_len+absorption_col_len:]
             df_ions.to_feather(y_ions_path)
-            logger.info(f"Successfully saved Ions: {len(df_ions)} rows, {len(df_ions.columns)} columns")
+            logger.info(f"Saved Ions: {len(df_ions)} rows, {len(df_ions.columns)} columns")
 
         except FileNotFoundError:
             logger.error(f"Raw data file not found: {raw_data_path}")
