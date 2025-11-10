@@ -3,6 +3,7 @@ import pandas as pd
 from pathlib import Path
 
 logger = logging.getLogger(__name__)
+logger.setLevel(level=logging.DEBUG)
 
 class DataProcessor:
     def __init__(self, config):
@@ -11,16 +12,21 @@ class DataProcessor:
     
     def process_raw_data(self) -> pd.DataFrame:
         """Load and process raw data with comprehensive logging"""
-        raw_paths = [
-            self.config['data']['raw']['trn_path'],
-            self.config['data']['raw']['vld_path']
-            ]
-        processed_paths = [
-            self.config['data']['processed']['trn'],
-            self.config['data']['processed']['vld']
-            ]
-        for raw_data_path, processed_data_paths in zip(raw_paths, processed_paths):
-            self.load_data(raw_data_path, **processed_data_paths)
+        trn_paths = dict(
+            raw_data_path = self.config['data']['raw']['trn_path'],
+            X_raman_path = self.config['data']['processed']['trn']['X']['raman_path'],
+            X_absorption_path = self.config['data']['processed']['trn']['X']['absorption_path'],
+            y_ions_path = self.config['data']['processed']['trn']['y_ions_path']
+        )
+        vld_paths = dict(
+            raw_data_path = self.config['data']['raw']['vld_path'],
+            X_raman_path = self.config['data']['processed']['vld']['X']['raman_path'],
+            X_absorption_path = self.config['data']['processed']['vld']['X']['absorption_path'],
+            y_ions_path = self.config['data']['processed']['vld']['y_ions_path']
+        )
+        
+        for paths in [trn_paths, vld_paths]:
+            self.load_data(**paths)
     
     def load_data(
             self, 
