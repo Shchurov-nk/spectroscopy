@@ -36,4 +36,4 @@ class Config:
 # Convenience function
 def load_config(config_path: str = "configs/config.yaml") -> Config:
     """Load configuration from YAML file"""
-    return Config(config_path)
+    return Config(config_path).data

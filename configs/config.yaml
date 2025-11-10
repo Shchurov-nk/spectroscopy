@@ -23,3 +23,8 @@ data:
         raman_path: 'data/processed/X_vld_raman.feather'
         absorption_path: 'data/processed/X_vld_absorption.feather'
       y_ions_path: 'data/processed/y_vld_ions.feather'
+
+feature_selection:
+  fcbf:
+    level_XX: 0.99
+    level_Xy: 0.1
