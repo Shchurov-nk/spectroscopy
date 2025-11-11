@@ -6,11 +6,26 @@ import logging
 class Config:
     """Configuration management class with validation"""
     
-    def __init__(self, config_path: str = "configs/config.yaml"):
-        self.config_path = Path(config_path)
+    def __init__(self):
+        self.config_path = Path("configs/config.yaml")
         self.data = {}
         self._load_config()
         self._validate_config()
+        self.y_ions_path = self.data['data']['processed']['trn']['y_ions_path']
+        self.raman_paths = (
+            self.data['data']['processed']['trn']['X']['raman_path'], 
+            self.data['data']['interim']['raman']['XX_path'],
+            self.data['data']['interim']['raman']['Xy_path'],
+            self.data['data']['interim']['raman']['masks']['fcbf_path']
+            )
+        self.absorp_paths = (
+            self.data['data']['processed']['trn']['X']['absorption_path'],
+            self.data['data']['interim']['absorption']['XX_path'],
+            self.data['data']['interim']['absorption']['Xy_path'],
+            self.data['data']['interim']['absorption']['masks']['fcbf_path']
+            )
+        self.level_XX = self.data['feature_selection']['fcbf']['level_XX']
+        self.level_Xy = self.data['feature_selection']['fcbf']['level_Xy']
         
     def _load_config(self) -> None:
         """Load YAML configuration file"""
@@ -32,8 +47,3 @@ class Config:
         for section in required_sections:
             if section not in self.data:
                 raise ValueError(f"Missing required config section: {section}")
-
-# Convenience function
-def load_config(config_path: str = "configs/config.yaml") -> Config:
-    """Load configuration from YAML file"""
-    return Config(config_path).data
