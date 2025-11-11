@@ -18,9 +18,10 @@ class FeatureSelector:
         - input features (XX)
         - input features and targets (Xy)
         """
-
+        logger.info("Calculating XX correlations...")
         self.corr_XX = self.df_X.corr().abs()
-
+        
+        logger.info("Calculating Xy correlations...")
         result = []
         for target in self.df_y.columns:
             one_corr_Xy = self.df_X.corrwith(self.df_y[target]).abs()
@@ -45,17 +46,25 @@ class FeatureSelector:
         while np.max(corr_Xy) > level_Xy:
             i_bestXY = np.argmax(corr_Xy)
             mask[i_bestXY] = True
-            corr_Xy[i_bestXY] = 0
+            corr_Xy.iloc[i_bestXY] = 0
             for i in range(self.corr_XX.shape[0]):
                 not_redundant = self.corr_XX.iloc[i_bestXY, i] > level_XX
-                if not mask[i] and corr_Xy[i] > 0 and not_redundant:
-                    corr_Xy[i] = 0
+                if not mask[i] and corr_Xy.iloc[i] > 0 and not_redundant:
+                    corr_Xy.iloc[i] = 0
         self.mask = pd.DataFrame(
             mask, 
             index=self.corr_XX.index, 
             columns=['Targets']
             )
-        logger.info("Selected features using FCBF")
+        logger.info(f"Selected {self.mask['Targets'].sum()} features using FCBF")
     
     def save_mask(self, mask_path):
         self.mask.to_feather(mask_path)
+
+    def fit(self):
+        self.calculate_correlations()
+        self.fcbf()
+
+    def transform(self):
+        self.df_X = self.df_X.loc[:, self.mask['Targets']]
+        return self.df_X

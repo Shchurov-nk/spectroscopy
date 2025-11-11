@@ -31,4 +31,4 @@ data:
 feature_selection:
   fcbf:
     level_XX: 0.99
-    level_Xy: 0.1
+    level_Xy: 0.001
