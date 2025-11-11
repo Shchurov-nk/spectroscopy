@@ -32,3 +32,10 @@ feature_selection:
   fcbf:
     level_XX: 0.99
     level_Xy: 0.001
+
+model_params:
+  lr: 0.01
+  epochs: 1000
+  batch_size: 8
+  patience: 500
+  min_delta: 0
