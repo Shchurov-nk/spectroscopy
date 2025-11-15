@@ -3,14 +3,19 @@ import pandas as pd
 import tensorflow as tf
 
 class ModelTrainer:
-    def __init__(self, X_trn, y_trn, X_vld, y_vld, model_params, ):
+    def __init__(
+            self, 
+            X_trn, y_trn, 
+            X_vld, y_vld, 
+            model_params, 
+            model_path,
+            ):
         self.X_trn = X_trn
         self.y_trn = y_trn
         self.X_vld = X_vld
         self.y_vld = y_vld
         self.params = model_params
-        self.model_path = config
-        pass
+        self.model_path = model_path
 
     def fit_my_model(self):
         model = tf.keras.models.Sequential()

@@ -39,3 +39,12 @@ model_params:
   batch_size: 8
   patience: 500
   min_delta: 0
+
+output:
+  models:
+    raman_full_model: 'models/raman_full_model.keras
+    raman_fcbf_model: 'models/raman_fcbf_model.keras'
+    absorption_full_model: 'models/absorption_full_model.keras'
+    absorption_fcbf_model: 'models/absorption_fcbf_model.keras'
+    both_full_model_path: 'models/both_full_model_path.keras'
+    both_fcbf_model_path: 'models/both_fcbf_model_path.keras'
