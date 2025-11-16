@@ -30,8 +30,8 @@ data:
 
 feature_selection:
   fcbf:
-    level_XX: 0.99
-    level_Xy: 0.001
+    level_XX: 0.95
+    level_Xy: 0.00
 
 model_params:
   lr: 0.01
@@ -42,7 +42,7 @@ model_params:
 
 output:
   models:
-    raman_full_model: 'models/raman_full_model.keras
+    raman_full_model: 'models/raman_full_model.keras'
     raman_fcbf_model: 'models/raman_fcbf_model.keras'
     absorption_full_model: 'models/absorption_full_model.keras'
     absorption_fcbf_model: 'models/absorption_fcbf_model.keras'

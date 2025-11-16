@@ -4,7 +4,7 @@ import pandas as pd
 from spectroscopy.config import Config
 from spectroscopy.dataset import DataProcessor
 from spectroscopy.features import FeatureSelector
-from spectroscopy.modeling.train import ModelTrainer
+# from spectroscopy.modeling.train import ModelTrainer
 
 logger = logging.getLogger(__name__)
 logger.setLevel(level=logging.DEBUG)
@@ -39,7 +39,7 @@ raman_full_training = {
     'X_vld': config.data['data']['processed']['vld']['X']['raman_path'],
     'y_vld': config.data['data']['processed']['vld']['y_ions_path'],
     'mask': None,
-    'model_path': config.data['output']['models']['model_path']
+    'model_path': config.data['output']['models']['raman_full_model']
 }
 
 raman_fcbf_training = {
@@ -47,7 +47,8 @@ raman_fcbf_training = {
     'y_trn': config.data['data']['processed']['trn']['y_ions_path'],
     'X_vld': config.data['data']['processed']['vld']['X']['raman_path'],
     'y_vld': config.data['data']['processed']['vld']['y_ions_path'],
-    'mask': config.data['data']['interim']['raman']['masks']['fcbf_path']
+    'mask': config.data['data']['interim']['raman']['masks']['fcbf_path'],
+    'model_path': config.data['output']['models']['raman_fcbf_model']
 }
 
 absorption_full_training = {
@@ -56,7 +57,7 @@ absorption_full_training = {
     'X_vld': config.data['data']['processed']['vld']['X']['absorption_path'],
     'y_vld': config.data['data']['processed']['vld']['y_ions_path'],
     'mask': None,
-    'model_path': config.data['output']['models']['absorption_raw_model_path']
+    'model_path': config.data['output']['models']['absorption_full_model']
 }
 
 absorption_fcbf_training = {
@@ -64,7 +65,8 @@ absorption_fcbf_training = {
     'y_trn': config.data['data']['processed']['trn']['y_ions_path'],
     'X_vld': config.data['data']['processed']['vld']['X']['absorption_path'],
     'y_vld': config.data['data']['processed']['vld']['y_ions_path'],
-    'mask': config.data['data']['interim']['absorption']['masks']['fcbf_path']
+    'mask': config.data['data']['interim']['absorption']['masks']['fcbf_path'],
+    'model_path': config.data['output']['models']['absorption_fcbf_model']
 }
 
 # TBD: concat raman and absorption features
@@ -72,19 +74,19 @@ both_full_training = {}
 both_fcbf_training = {}
 
 
-for training_params in [
-    raman_full_training,
-    raman_fcbf_training,
-    absorption_full_training,
-    absorption_fcbf_training,
-    # both_full_training
-    # both_fcbf_training
-]:
-    X_trn = pd.read_feather(training_params['X_trn'])
-    y_trn = pd.read_feather(training_params['y_trn'])
-    X_vld = pd.read_feather(training_params['X_vld'])
-    y_vld = pd.read_feather(training_params['y_vld'])
+# for training_params in [
+#     raman_full_training,
+#     raman_fcbf_training,
+#     absorption_full_training,
+#     absorption_fcbf_training,
+#     # both_full_training
+#     # both_fcbf_training
+# ]:
+#     X_trn = pd.read_feather(training_params['X_trn'])
+#     y_trn = pd.read_feather(training_params['y_trn'])
+#     X_vld = pd.read_feather(training_params['X_vld'])
+#     y_vld = pd.read_feather(training_params['y_vld'])
     
-    model_params = config.data['model_params']
-    model_path = config.data['output']['models']['model_path']
-    model_trainer = ModelTrainer()
+#     model_params = config.data['model_params']
+#     model_path = config.data['output']['models']['model_path']
+#     model_trainer = ModelTrainer()

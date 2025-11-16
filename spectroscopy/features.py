@@ -39,6 +39,7 @@ class FeatureSelector:
         """
         Fast correlation-based feature selection (FCBF)
         """
+        logger.info(f"Selecting features using FCBF...")
         corr_Xy = self.corr_Xy.copy()
         # Calculate product to use all target variables info
         corr_Xy = corr_Xy.prod(axis=1)
@@ -48,8 +49,8 @@ class FeatureSelector:
             mask[i_bestXY] = True
             corr_Xy.iloc[i_bestXY] = 0
             for i in range(self.corr_XX.shape[0]):
-                not_redundant = self.corr_XX.iloc[i_bestXY, i] > level_XX
-                if not mask[i] and corr_Xy.iloc[i] > 0 and not_redundant:
+                redundant = self.corr_XX.iloc[i_bestXY, i] > level_XX
+                if not mask[i] and corr_Xy.iloc[i] > 0 and redundant:
                     corr_Xy.iloc[i] = 0
         self.mask = pd.DataFrame(
             mask, 
