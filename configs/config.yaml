@@ -5,6 +5,7 @@ data:
   raw:
     trn_path: 'data/raw/hm_trn.csv'
     vld_path: 'data/raw/hm_tst.csv'
+    tst_path: 'data/raw/hm_pro.csv'
   interim:
     raman:
       XX_path: 'data/interim/corr/raman_XX.feather'
@@ -27,6 +28,11 @@ data:
         raman_path: 'data/processed/X_vld_raman.feather'
         absorption_path: 'data/processed/X_vld_absorption.feather'
       y_ions_path: 'data/processed/y_vld_ions.feather'
+    tst:
+      X:
+        raman_path: 'data/processed/X_tst_raman.feather'
+        absorption_path: 'data/processed/X_tst_absorption.feather'
+      y_ions_path: 'data/processed/y_tst_ions.feather'
 
 feature_selection:
   fcbf:

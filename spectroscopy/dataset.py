@@ -24,8 +24,14 @@ class DataProcessor:
             X_absorption_path = self.config['data']['processed']['vld']['X']['absorption_path'],
             y_ions_path = self.config['data']['processed']['vld']['y_ions_path']
         )
+        tst_paths = dict(
+            raw_data_path = self.config['data']['raw']['tst_path'],
+            X_raman_path = self.config['data']['processed']['tst']['X']['raman_path'],
+            X_absorption_path = self.config['data']['processed']['tst']['X']['absorption_path'],
+            y_ions_path = self.config['data']['processed']['tst']['y_ions_path']
+        )
         
-        for paths in [trn_paths, vld_paths]:
+        for paths in [trn_paths, vld_paths, tst_paths]:
             self.load_data(**paths)
     
     def load_data(
